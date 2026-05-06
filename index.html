@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Macro Trade Coach</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">PTJ-geinspireerde marktcoach</p>
+            <h1>Macro Trade Coach</h1>
+          </div>
+          <button class="icon-button" id="resetButton" type="button" aria-label="Reset analyse" title="Reset">
+            &#8635;
+          </button>
+        </header>
+
+        <section class="panel input-panel" aria-labelledby="inputTitle">
+          <div class="panel-heading">
+            <h2 id="inputTitle">Aandeel</h2>
+            <span class="status-pill" id="riskLabel">Risk first</span>
+          </div>
+
+          <form id="tradeForm">
+            <div class="grid two">
+              <label>
+                Ticker
+                <input id="ticker" name="ticker" value="NVDA" maxlength="12" autocomplete="off" />
+              </label>
+              <label>
+                Huidige prijs
+                <input id="price" name="price" type="number" min="0.01" step="0.01" value="900" />
+              </label>
+            </div>
+
+            <div class="grid three">
+              <label>
+                50-daags gemiddelde
+                <input id="ma50" name="ma50" type="number" min="0.01" step="0.01" value="870" />
+              </label>
+              <label>
+                200-daags gemiddelde
+                <input id="ma200" name="ma200" type="number" min="0.01" step="0.01" value="760" />
+              </label>
+              <label>
+                ATR / dagbeweging
+                <input id="atr" name="atr" type="number" min="0.01" step="0.01" value="28" />
+              </label>
+            </div>
+
+            <div class="grid three">
+              <label>
+                Rekeningwaarde
+                <input id="account" name="account" type="number" min="100" step="100" value="10000" />
+              </label>
+              <label>
+                Risico per trade
+                <select id="risk" name="risk">
+                  <option value="0.005">0.5%</option>
+                  <option value="0.01" selected>1%</option>
+                  <option value="0.015">1.5%</option>
+                  <option value="0.02">2%</option>
+                </select>
+              </label>
+              <label>
+                Tijdshorizon
+                <select id="horizon" name="horizon">
+                  <option value="swing">Swing, dagen tot weken</option>
+                  <option value="position" selected>Positie, weken tot maanden</option>
+                  <option value="investor">Investor, maanden tot jaren</option>
+                </select>
+              </label>
+            </div>
+
+            <fieldset>
+              <legend>Marktregime</legend>
+              <div class="segmented" role="radiogroup" aria-label="Marktregime">
+                <label><input type="radio" name="regime" value="risk-on" checked /> Risk-on</label>
+                <label><input type="radio" name="regime" value="mixed" /> Gemengd</label>
+                <label><input type="radio" name="regime" value="risk-off" /> Risk-off</label>
+              </div>
+            </fieldset>
+
+            <label>
+              Jouw idee of trigger
+              <textarea id="thesis" name="thesis" rows="3">Sterke trend, maar ik wil niet achter een uitbraak aanlopen.</textarea>
+            </label>
+
+            <div class="actions">
+              <button class="primary" type="submit">Maak handelsplan</button>
+              <button class="secondary" id="exampleButton" type="button">Voorbeeld laden</button>
+            </div>
+          </form>
+        </section>
+      </section>
+
+      <aside class="output" aria-live="polite">
+        <section class="brief">
+          <p class="eyebrow">Analyse</p>
+          <h2 id="resultTitle">Vul een aandeel in</h2>
+          <p id="resultSummary">De coach zoekt naar asymmetrie: klein verlies als je fout zit, grote ruimte als je gelijk hebt.</p>
+        </section>
+
+        <section class="score-strip">
+          <div>
+            <span id="trendScore">-</span>
+            <small>Trend</small>
+          </div>
+          <div>
+            <span id="setupScore">-</span>
+            <small>Setup</small>
+          </div>
+          <div>
+            <span id="riskScore">-</span>
+            <small>Risk</small>
+          </div>
+        </section>
+
+        <section class="plan-grid">
+          <article class="plan-card">
+            <h3>Kopen</h3>
+            <p id="buyPlan">Nog geen plan.</p>
+          </article>
+          <article class="plan-card">
+            <h3>Stop</h3>
+            <p id="stopPlan">Nog geen plan.</p>
+          </article>
+          <article class="plan-card">
+            <h3>Verkopen</h3>
+            <p id="sellPlan">Nog geen plan.</p>
+          </article>
+          <article class="plan-card">
+            <h3>Wanneer letten</h3>
+            <p id="watchPlan">Nog geen plan.</p>
+          </article>
+        </section>
+
+        <section class="checklist">
+          <h3>Checklist voor je order</h3>
+          <ul id="checklist"></ul>
+        </section>
+
+        <p class="disclaimer">
+          Dit is educatieve analyse, geen financieel advies. Controleer altijd actuele koersdata,
+          nieuws, liquiditeit en je eigen risicotolerantie.
+        </p>
+      </aside>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
